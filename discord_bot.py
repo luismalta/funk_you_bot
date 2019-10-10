@@ -1,6 +1,7 @@
 # bot.py
 import os
 import random
+import requests
 
 import discord
 from dotenv import load_dotenv
@@ -16,14 +17,9 @@ async def on_message(message):
     if message.author == client.user:
             return
 
-    xingamento_list = [
-        'Seu merda',
-        'Bundão',
-        'Pau no cú'
-    ]
+    response = requests.get('http://xinga-me.appspot.com/api').json()['xingamento']
 
     if message.content == '!xingamento':
-        response = random.choice(xingamento_list)
         await message.channel.send(response)
 
 client.run(token)
